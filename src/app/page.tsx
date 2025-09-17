@@ -3,84 +3,66 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[80vh]">
-      <h1 className="text-4xl font-bold text-center mb-8 text-primary">
-        性行为同意协议系统
-      </h1>
+    <div className="flex flex-col items-center justify-center min-h-[80vh] animate-fade-in">
+      <div className="modern-card p-12 max-w-5xl w-full mx-4">
+        <h1 className="text-5xl font-bold text-center mb-8 gradient-text">
+          性行为同意协议系统
+        </h1>
 
-      <div className="max-w-3xl mx-auto text-center mb-12">
-        <p className="text-lg mb-4">
-          欢迎使用性行为同意协议系统。本系统旨在帮助用户创建合法有效的性行为同意协议，确保各方权益得到保障。
-        </p>
-        <p className="text-md mb-8">
-          通过本系统，您可以创建、查看和管理性行为同意协议，所有数据均存储在本地，保障您的隐私安全。
-        </p>
-      </div>
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <p className="text-xl mb-6 text-gray-700 leading-relaxed">
+            欢迎使用性行为同意协议系统。本系统旨在帮助用户创建合法有效的性行为同意协议，确保各方权益得到保障。
+          </p>
+          <p className="text-lg mb-8 text-gray-600">
+            通过本系统，您可以创建、查看和管理性行为同意协议，所有数据均存储在本地，保障您的隐私安全。
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl w-full">
-        <Link href="/create" className="btn btn-primary btn-lg w-full">
-          创建新协议
-        </Link>
-        <Link href="/agreements" className="btn btn-outline btn-lg w-full">
-          查看我的协议
-        </Link>
-      </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl w-full mb-12">
+          <Link href="/create" className="modern-button btn btn-lg w-full text-white font-semibold py-4 px-8 rounded-xl">
+            <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            创建新协议
+          </Link>
+          <Link href="/agreements" className="btn btn-outline btn-lg w-full font-semibold py-4 px-8 rounded-xl border-2 border-blue-500 text-blue-600 hover:bg-blue-50 transition-all duration-300">
+            <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            查看我的协议
+          </Link>
+        </div>
 
-      <div className="mt-12 p-6 bg-base-200 rounded-lg max-w-3xl w-full">
-        <h2 className="text-xl font-semibold mb-4">关于性同意协议</h2>
-        <ul className="list-disc list-inside space-y-2">
-          <li>性同意协议是双方或多方在进行性活动前达成的明确同意</li>
-          <li>协议内容包括同意的范围、安全措施、隐私保护等</li>
-          <li>任何一方均有权随时撤回同意</li>
-          <li>协议遵循自愿、平等、真实的原则</li>
-          <li>本系统生成的协议可打印出来供双方手签</li>
-        </ul>
-      </div>
-
-      <div className="mt-8 text-center max-w-3xl w-full text-sm opacity-80">
-        <div className="border-t pt-6 border-gray-200 dark:border-gray-700">
-          <p className="mb-3">本项目开源于GitHub</p>
-          <div className="flex justify-center items-center gap-3">
-            <a
-              href="https://github.com/123xiao/sex-agreement-app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
-            >
-              仓库地址
-            </a>
-            <span>•</span>
-            <a
-              href="https://github.com/123xiao/sex-agreement-app/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
-            >
-              问题反馈
-            </a>
-            <span>•</span>
-            <a
-              href="https://github.com/123xiao/sex-agreement-app/stargazers"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 hover:opacity-80 transition-opacity"
-            >
-              <img
-                src="https://img.shields.io/github/stars/123xiao/sex-agreement-app?style=flat-square&color=gray"
-                alt="GitHub Stars"
-                height="20"
-              />
-            </a>
-          </div>
-          <div className="mt-3">
-            <p className="text-xs text-gray-500 mb-2">访问统计</p>
-            <img
-              src="https://profile-counter.glitch.me/123xiao-sex-agreement-app/count.svg"
-              alt="访问计数器"
-              className="mx-auto"
-            />
+        <div className="modern-card p-8 max-w-4xl w-full bg-gradient-to-br from-blue-50 to-purple-50 border-0">
+          <h2 className="text-2xl font-bold mb-6 text-center gradient-text">关于性同意协议</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                <p className="text-gray-700">性同意协议是双方或多方在进行性活动前达成的明确同意</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                <p className="text-gray-700">协议内容包括同意的范围、安全措施、隐私保护等</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                <p className="text-gray-700">任何一方均有权随时撤回同意</p>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                <p className="text-gray-700">协议遵循自愿、平等、真实的原则</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                <p className="text-gray-700">本系统生成的协议可打印出来供双方手签</p>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   );

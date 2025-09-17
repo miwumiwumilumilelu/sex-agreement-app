@@ -196,426 +196,497 @@ export default function CreateAgreement() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center">创建性同意协议</h1>
+    <div className="max-w-5xl mx-auto animate-fade-in">
+      <div className="modern-card p-8 mb-8">
+        <h1 className="text-4xl font-bold mb-8 text-center gradient-text">创建性同意协议</h1>
 
-      {/* 步骤指示器 */}
-      <div className="mb-8">
-        <ul className="steps steps-horizontal w-full">
-          <li className={`step ${step >= 1 ? "step-primary" : ""}`}>
-            基本信息
-          </li>
-          <li className={`step ${step >= 2 ? "step-primary" : ""}`}>
-            详细条款
-          </li>
-          <li className={`step ${step >= 3 ? "step-primary" : ""}`}>
-            安全与隐私
-          </li>
-          <li className={`step ${step >= 4 ? "step-primary" : ""}`}>
-            确认提交
-          </li>
-        </ul>
+        {/* 步骤指示器 */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between relative">
+            {[1, 2, 3, 4].map((stepNum) => (
+              <div key={stepNum} className="flex flex-col items-center relative z-10">
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 ${
+                  step >= stepNum 
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg' 
+                    : 'bg-gray-300'
+                }`}>
+                  {stepNum}
+                </div>
+                <span className={`mt-2 text-sm font-medium ${
+                  step >= stepNum ? 'text-blue-600' : 'text-gray-500'
+                }`}>
+                  {stepNum === 1 && '基本信息'}
+                  {stepNum === 2 && '详细条款'}
+                  {stepNum === 3 && '安全与隐私'}
+                  {stepNum === 4 && '确认提交'}
+                </span>
+              </div>
+            ))}
+            <div className="absolute top-6 left-6 right-6 h-0.5 bg-gray-200 -z-10">
+              <div 
+                className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-500"
+                style={{ width: `${((step - 1) / 3) * 100}%` }}
+              ></div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         {/* 第一步：基本信息 */}
         {step === 1 && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">参与方1姓名</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  {...register("party1Name", { required: "请输入参与方1姓名" })}
-                />
-                {errors.party1Name && (
-                  <p className="text-error mt-1">{errors.party1Name.message}</p>
-                )}
-              </div>
+          <div className="modern-card p-8 animate-slide-up">
+            <h2 className="text-2xl font-bold mb-6 text-center gradient-text">基本信息</h2>
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-semibold text-gray-700">参与方1姓名</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="modern-input input w-full"
+                    placeholder="请输入参与方1姓名"
+                    {...register("party1Name", { required: "请输入参与方1姓名" })}
+                  />
+                  {errors.party1Name && (
+                    <p className="text-red-500 mt-2 text-sm">{errors.party1Name.message}</p>
+                  )}
+                </div>
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">参与方2姓名</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  {...register("party2Name", { required: "请输入参与方2姓名" })}
-                />
-                {errors.party2Name && (
-                  <p className="text-error mt-1">{errors.party2Name.message}</p>
-                )}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">参与方1身份证号</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  {...register("party1ID", {
-                    required: "请输入参与方1身份证号",
-                    pattern: {
-                      value: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
-                      message: "请输入有效的身份证号",
-                    },
-                  })}
-                />
-                {errors.party1ID && (
-                  <p className="text-error mt-1">{errors.party1ID.message}</p>
-                )}
-              </div>
-
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">参与方2身份证号</span>
-                </label>
-                <input
-                  type="text"
-                  className="input input-bordered w-full"
-                  {...register("party2ID", {
-                    required: "请输入参与方2身份证号",
-                    pattern: {
-                      value: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
-                      message: "请输入有效的身份证号",
-                    },
-                  })}
-                />
-                {errors.party2ID && (
-                  <p className="text-error mt-1">{errors.party2ID.message}</p>
-                )}
-              </div>
-            </div>
-
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">日期</span>
-              </label>
-              <input
-                type="date"
-                className="input input-bordered w-full"
-                {...register("date", { required: "请选择日期" })}
-              />
-              {errors.date && (
-                <p className="text-error mt-1">{errors.date.message}</p>
-              )}
-            </div>
-
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">协议标题</span>
-                <span className="label-text-alt">填写双方姓名后自动生成</span>
-              </label>
-              <input
-                type="text"
-                className="input input-bordered w-full"
-                {...register("agreementTitle", { required: "请输入协议标题" })}
-              />
-              {errors.agreementTitle && (
-                <p className="text-error mt-1">
-                  {errors.agreementTitle.message}
-                </p>
-              )}
-            </div>
-
-            {/* 添加模板选择按钮 */}
-            <div className="form-control">
-              <button
-                type="button"
-                className="btn btn-outline btn-info w-full"
-                onClick={() => setShowTemplates(!showTemplates)}
-              >
-                {showTemplates ? "隐藏模板选择" : "选择协议模板"}
-              </button>
-            </div>
-
-            {/* 模板列表 */}
-            {showTemplates && (
-              <div className="bg-base-200 p-4 rounded-lg">
-                <h3 className="font-semibold mb-4">选择一个模板快速创建</h3>
-                <div className="space-y-4">
-                  {agreementTemplates.map((template) => (
-                    <div
-                      key={template.id}
-                      className="card bg-base-100 shadow-sm hover:shadow-md transition-shadow"
-                    >
-                      <div className="card-body p-4">
-                        <h4 className="card-title text-lg">{template.name}</h4>
-                        <p className="text-sm text-base-content/70">
-                          {template.description}
-                        </p>
-                        <div className="card-actions justify-end mt-2">
-                          <button
-                            type="button"
-                            className="btn btn-sm btn-primary"
-                            onClick={() => applyTemplate(template.id)}
-                          >
-                            使用此模板
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-semibold text-gray-700">参与方2姓名</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="modern-input input w-full"
+                    placeholder="请输入参与方2姓名"
+                    {...register("party2Name", { required: "请输入参与方2姓名" })}
+                  />
+                  {errors.party2Name && (
+                    <p className="text-red-500 mt-2 text-sm">{errors.party2Name.message}</p>
+                  )}
                 </div>
               </div>
-            )}
 
-            <div className="flex justify-between mt-8">
-              <Link href="/" className="btn btn-outline">
-                取消
-              </Link>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={nextStep}
-              >
-                下一步
-              </button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-semibold text-gray-700">参与方1身份证号</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="modern-input input w-full"
+                    placeholder="请输入参与方1身份证号"
+                    {...register("party1ID", {
+                      required: "请输入参与方1身份证号",
+                      pattern: {
+                        value: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+                        message: "请输入有效的身份证号",
+                      },
+                    })}
+                  />
+                  {errors.party1ID && (
+                    <p className="text-red-500 mt-2 text-sm">{errors.party1ID.message}</p>
+                  )}
+                </div>
+
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-semibold text-gray-700">参与方2身份证号</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="modern-input input w-full"
+                    placeholder="请输入参与方2身份证号"
+                    {...register("party2ID", {
+                      required: "请输入参与方2身份证号",
+                      pattern: {
+                        value: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+                        message: "请输入有效的身份证号",
+                      },
+                    })}
+                  />
+                  {errors.party2ID && (
+                    <p className="text-red-500 mt-2 text-sm">{errors.party2ID.message}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-semibold text-gray-700">日期</span>
+                  </label>
+                  <input
+                    type="date"
+                    className="modern-input input w-full"
+                    {...register("date", { required: "请选择日期" })}
+                  />
+                  {errors.date && (
+                    <p className="text-red-500 mt-2 text-sm">{errors.date.message}</p>
+                  )}
+                </div>
+
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-semibold text-gray-700">协议标题</span>
+                    <span className="label-text-alt text-gray-500">填写双方姓名后自动生成</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="modern-input input w-full"
+                    placeholder="协议标题"
+                    {...register("agreementTitle", { required: "请输入协议标题" })}
+                  />
+                  {errors.agreementTitle && (
+                    <p className="text-red-500 mt-2 text-sm">
+                      {errors.agreementTitle.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* 添加模板选择按钮 */}
+              <div className="form-control">
+                <button
+                  type="button"
+                  className="btn btn-outline w-full border-2 border-blue-500 text-blue-600 hover:bg-blue-50 transition-all duration-300 font-semibold py-3"
+                  onClick={() => setShowTemplates(!showTemplates)}
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  {showTemplates ? "隐藏模板选择" : "选择协议模板"}
+                </button>
+              </div>
+
+              {/* 模板列表 */}
+              {showTemplates && (
+                <div className="glass-effect p-6 rounded-2xl">
+                  <h3 className="font-bold mb-6 text-center text-xl gradient-text">选择一个模板快速创建</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {agreementTemplates.map((template) => (
+                      <div
+                        key={template.id}
+                        className="modern-card p-6 hover:shadow-lg transition-all duration-300 cursor-pointer group"
+                        onClick={() => applyTemplate(template.id)}
+                      >
+                        <h4 className="card-title text-lg font-bold mb-3 group-hover:text-blue-600 transition-colors">
+                          {template.name}
+                        </h4>
+                        <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                          {template.description}
+                        </p>
+                        <button
+                          type="button"
+                          className="modern-button btn btn-sm w-full"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            applyTemplate(template.id);
+                          }}
+                        >
+                          使用此模板
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex justify-between mt-8">
+                <Link href="/" className="btn btn-outline border-2 border-gray-300 text-gray-600 hover:bg-gray-50 transition-all duration-300 font-semibold px-8">
+                  取消
+                </Link>
+                <button
+                  type="button"
+                  className="modern-button btn px-8 font-semibold"
+                  onClick={nextStep}
+                >
+                  下一步
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         )}
 
         {/* 第二步：详细条款 */}
         {step === 2 && (
-          <div className="space-y-4">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">同意详情</span>
-              </label>
-              <textarea
-                className="textarea textarea-bordered h-32"
-                placeholder="请详细描述双方同意的性行为范围和内容..."
-                {...register("consentDetails", { required: "请输入同意详情" })}
-              ></textarea>
-              {errors.consentDetails && (
-                <p className="text-error mt-1">
-                  {errors.consentDetails.message}
-                </p>
-              )}
-            </div>
-
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">安全措施</span>
-              </label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    checked={safetyOptions.contraception}
-                    onChange={() => handleSafetyOptionChange("contraception")}
-                  />
-                  <span>使用避孕措施</span>
+          <div className="modern-card p-8 animate-slide-up">
+            <h2 className="text-2xl font-bold mb-6 text-center gradient-text">详细条款</h2>
+            <div className="space-y-6">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold text-gray-700">同意详情</span>
                 </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    checked={safetyOptions.sti_testing}
-                    onChange={() => handleSafetyOptionChange("sti_testing")}
-                  />
-                  <span>性传播疾病检测</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    checked={safetyOptions.safe_words}
-                    onChange={() => handleSafetyOptionChange("safe_words")}
-                  />
-                  <span>使用安全词</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    checked={safetyOptions.no_recording}
-                    onChange={() => handleSafetyOptionChange("no_recording")}
-                  />
-                  <span>禁止录音录像</span>
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    checked={safetyOptions.other}
-                    onChange={() => handleSafetyOptionChange("other")}
-                  />
-                  <span>其他措施</span>
-                </label>
+                <textarea
+                  className="modern-input textarea h-32 w-full"
+                  placeholder="请详细描述双方同意的性行为范围和内容..."
+                  {...register("consentDetails", { required: "请输入同意详情" })}
+                ></textarea>
+                {errors.consentDetails && (
+                  <p className="text-red-500 mt-2 text-sm">
+                    {errors.consentDetails.message}
+                  </p>
+                )}
               </div>
-            </div>
 
-            <div className="flex justify-between mt-8">
-              <button
-                type="button"
-                className="btn btn-outline"
-                onClick={prevStep}
-              >
-                上一步
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={nextStep}
-              >
-                下一步
-              </button>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold text-gray-700">安全措施</span>
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-xl">
+                  <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-white transition-colors">
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-primary"
+                      checked={safetyOptions.contraception}
+                      onChange={() => handleSafetyOptionChange("contraception")}
+                    />
+                    <span className="font-medium">使用避孕措施</span>
+                  </label>
+                  <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-white transition-colors">
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-primary"
+                      checked={safetyOptions.sti_testing}
+                      onChange={() => handleSafetyOptionChange("sti_testing")}
+                    />
+                    <span className="font-medium">性传播疾病检测</span>
+                  </label>
+                  <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-white transition-colors">
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-primary"
+                      checked={safetyOptions.safe_words}
+                      onChange={() => handleSafetyOptionChange("safe_words")}
+                    />
+                    <span className="font-medium">使用安全词</span>
+                  </label>
+                  <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-white transition-colors">
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-primary"
+                      checked={safetyOptions.no_recording}
+                      onChange={() => handleSafetyOptionChange("no_recording")}
+                    />
+                    <span className="font-medium">禁止录音录像</span>
+                  </label>
+                  <label className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-white transition-colors md:col-span-2">
+                    <input
+                      type="checkbox"
+                      className="checkbox checkbox-primary"
+                      checked={safetyOptions.other}
+                      onChange={() => handleSafetyOptionChange("other")}
+                    />
+                    <span className="font-medium">其他措施</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="flex justify-between mt-8">
+                <button
+                  type="button"
+                  className="btn btn-outline border-2 border-gray-300 text-gray-600 hover:bg-gray-50 transition-all duration-300 font-semibold px-8"
+                  onClick={prevStep}
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  上一步
+                </button>
+                <button
+                  type="button"
+                  className="modern-button btn px-8 font-semibold"
+                  onClick={nextStep}
+                >
+                  下一步
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         )}
 
         {/* 第三步：安全与隐私 */}
         {step === 3 && (
-          <div className="space-y-4">
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">隐私条款</span>
-              </label>
-              <textarea
-                className="textarea textarea-bordered h-24"
-                placeholder="请描述关于隐私保护的条款..."
-                {...register("privacyTerms", { required: "请输入隐私条款" })}
-              ></textarea>
-              {errors.privacyTerms && (
-                <p className="text-error mt-1">{errors.privacyTerms.message}</p>
-              )}
-            </div>
+          <div className="modern-card p-8 animate-slide-up">
+            <h2 className="text-2xl font-bold mb-6 text-center gradient-text">安全与隐私</h2>
+            <div className="space-y-6">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold text-gray-700">隐私条款</span>
+                </label>
+                <textarea
+                  className="modern-input textarea h-24 w-full"
+                  placeholder="请描述关于隐私保护的条款..."
+                  {...register("privacyTerms", { required: "请输入隐私条款" })}
+                ></textarea>
+                {errors.privacyTerms && (
+                  <p className="text-red-500 mt-2 text-sm">{errors.privacyTerms.message}</p>
+                )}
+              </div>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">撤回同意条款</span>
-              </label>
-              <textarea
-                className="textarea textarea-bordered h-24"
-                placeholder="请描述关于撤回同意的条款..."
-                {...register("revocationTerms", {
-                  required: "请输入撤回同意条款",
-                })}
-              ></textarea>
-              {errors.revocationTerms && (
-                <p className="text-error mt-1">
-                  {errors.revocationTerms.message}
-                </p>
-              )}
-            </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold text-gray-700">撤回同意条款</span>
+                </label>
+                <textarea
+                  className="modern-input textarea h-24 w-full"
+                  placeholder="请描述关于撤回同意的条款..."
+                  {...register("revocationTerms", {
+                    required: "请输入撤回同意条款",
+                  })}
+                ></textarea>
+                {errors.revocationTerms && (
+                  <p className="text-red-500 mt-2 text-sm">
+                    {errors.revocationTerms.message}
+                  </p>
+                )}
+              </div>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">额外条款（可选）</span>
-              </label>
-              <textarea
-                className="textarea textarea-bordered h-24"
-                placeholder="请描述任何其他额外条款..."
-                {...register("additionalTerms")}
-              ></textarea>
-            </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold text-gray-700">额外条款（可选）</span>
+                </label>
+                <textarea
+                  className="modern-input textarea h-24 w-full"
+                  placeholder="请描述任何其他额外条款..."
+                  {...register("additionalTerms")}
+                ></textarea>
+              </div>
 
-            <div className="flex justify-between mt-8">
-              <button
-                type="button"
-                className="btn btn-outline"
-                onClick={prevStep}
-              >
-                上一步
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={nextStep}
-              >
-                下一步
-              </button>
+              <div className="flex justify-between mt-8">
+                <button
+                  type="button"
+                  className="btn btn-outline border-2 border-gray-300 text-gray-600 hover:bg-gray-50 transition-all duration-300 font-semibold px-8"
+                  onClick={prevStep}
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  上一步
+                </button>
+                <button
+                  type="button"
+                  className="modern-button btn px-8 font-semibold"
+                  onClick={nextStep}
+                >
+                  下一步
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         )}
 
         {/* 第四步：确认提交 */}
         {step === 4 && (
-          <div className="space-y-4">
-            <div className="bg-base-200 p-6 rounded-lg">
-              <h2 className="text-xl font-semibold mb-4">协议摘要</h2>
+          <div className="modern-card p-8 animate-slide-up">
+            <h2 className="text-2xl font-bold mb-6 text-center gradient-text">确认提交</h2>
+            <div className="space-y-6">
+              <div className="glass-effect p-6 rounded-2xl">
+                <h3 className="text-xl font-bold mb-6 text-center">协议摘要</h3>
 
-              <div className="mb-4">
-                <p className="text-sm font-medium">协议标题</p>
-                <p>{watch("agreementTitle")}</p>
-              </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold text-gray-600">协议标题</p>
+                    <p className="text-lg font-medium">{watch("agreementTitle")}</p>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold text-gray-600">日期</p>
+                    <p className="text-lg font-medium">{watch("date")}</p>
+                  </div>
+                </div>
 
-              <div className="mb-4">
-                <p className="text-sm font-medium">日期</p>
-                <p>{watch("date")}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-sm font-medium">参与方</p>
-                <p>
-                  {watch("party1Name")} 和 {watch("party2Name")}
-                </p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-sm font-medium">同意详情</p>
-                <p className="whitespace-pre-line">{watch("consentDetails")}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-sm font-medium">安全措施</p>
-                <ul className="list-disc list-inside">
-                  {safetyOptions.contraception && <li>使用避孕措施</li>}
-                  {safetyOptions.sti_testing && <li>性传播疾病检测</li>}
-                  {safetyOptions.safe_words && <li>使用安全词</li>}
-                  {safetyOptions.no_recording && <li>禁止录音录像</li>}
-                  {safetyOptions.other && <li>其他措施</li>}
-                </ul>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-sm font-medium">隐私条款</p>
-                <p className="whitespace-pre-line">{watch("privacyTerms")}</p>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-sm font-medium">撤回同意条款</p>
-                <p className="whitespace-pre-line">
-                  {watch("revocationTerms")}
-                </p>
-              </div>
-
-              {watch("additionalTerms") && (
-                <div className="mb-4">
-                  <p className="text-sm font-medium">额外条款</p>
-                  <p className="whitespace-pre-line">
-                    {watch("additionalTerms")}
+                <div className="mb-6">
+                  <p className="text-sm font-semibold text-gray-600 mb-2">参与方</p>
+                  <p className="text-lg font-medium">
+                    {watch("party1Name")} 和 {watch("party2Name")}
                   </p>
                 </div>
-              )}
-            </div>
 
-            <div className="form-control">
-              <label className="flex items-center gap-2 cursor-pointer justify-center">
-                <input type="checkbox" className="checkbox" required />
-                <span>我确认以上信息真实有效，且双方自愿签署本协议</span>
-              </label>
-            </div>
+                <div className="mb-6">
+                  <p className="text-sm font-semibold text-gray-600 mb-2">同意详情</p>
+                  <div className="bg-white p-4 rounded-lg">
+                    <p className="whitespace-pre-line text-gray-700">{watch("consentDetails")}</p>
+                  </div>
+                </div>
 
-            <div className="flex justify-between mt-8">
-              <button
-                type="button"
-                className="btn btn-outline"
-                onClick={prevStep}
-              >
-                上一步
-              </button>
-              <button type="submit" className="btn btn-primary">
-                创建协议
-              </button>
+                <div className="mb-6">
+                  <p className="text-sm font-semibold text-gray-600 mb-2">安全措施</p>
+                  <div className="bg-white p-4 rounded-lg">
+                    <ul className="space-y-1">
+                      {safetyOptions.contraception && <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>使用避孕措施</li>}
+                      {safetyOptions.sti_testing && <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>性传播疾病检测</li>}
+                      {safetyOptions.safe_words && <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>使用安全词</li>}
+                      {safetyOptions.no_recording && <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>禁止录音录像</li>}
+                      {safetyOptions.other && <li className="flex items-center gap-2"><span className="w-2 h-2 bg-blue-500 rounded-full"></span>其他措施</li>}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <p className="text-sm font-semibold text-gray-600 mb-2">隐私条款</p>
+                  <div className="bg-white p-4 rounded-lg">
+                    <p className="whitespace-pre-line text-gray-700">{watch("privacyTerms")}</p>
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <p className="text-sm font-semibold text-gray-600 mb-2">撤回同意条款</p>
+                  <div className="bg-white p-4 rounded-lg">
+                    <p className="whitespace-pre-line text-gray-700">
+                      {watch("revocationTerms")}
+                    </p>
+                  </div>
+                </div>
+
+                {watch("additionalTerms") && (
+                  <div className="mb-6">
+                    <p className="text-sm font-semibold text-gray-600 mb-2">额外条款</p>
+                    <div className="bg-white p-4 rounded-lg">
+                      <p className="whitespace-pre-line text-gray-700">
+                        {watch("additionalTerms")}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="form-control">
+                <label className="flex items-center gap-3 cursor-pointer justify-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                  <input type="checkbox" className="checkbox checkbox-primary" required />
+                  <span className="font-medium">我确认以上信息真实有效，且双方自愿签署本协议</span>
+                </label>
+              </div>
+
+              <div className="flex justify-between mt-8">
+                <button
+                  type="button"
+                  className="btn btn-outline border-2 border-gray-300 text-gray-600 hover:bg-gray-50 transition-all duration-300 font-semibold px-8"
+                  onClick={prevStep}
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  上一步
+                </button>
+                <button type="submit" className="modern-button btn px-8 font-semibold">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  创建协议
+                </button>
+              </div>
             </div>
           </div>
         )}

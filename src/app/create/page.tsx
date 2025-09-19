@@ -197,23 +197,23 @@ export default function CreateAgreement() {
 
   return (
     <div className="max-w-5xl mx-auto animate-fade-in">
-      <div className="modern-card p-8 mb-8">
-        <h1 className="text-4xl font-bold mb-8 text-center gradient-text">创建性同意协议</h1>
+      <div className="modern-card p-8 mb-8 sparkle">
+        <h1 className="text-4xl font-bold mb-8 text-center gradient-text animate-bounce-in">创建性同意协议</h1>
 
         {/* 步骤指示器 */}
         <div className="mb-8">
           <div className="flex items-center justify-between relative">
             {[1, 2, 3, 4].map((stepNum) => (
-              <div key={stepNum} className="flex flex-col items-center relative z-10">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 ${
-                  step >= stepNum 
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg' 
-                    : 'bg-gray-300'
-                }`}>
+              <div key={stepNum} className="flex flex-col items-center relative z-10 animate-scale-in" style={{ animationDelay: `${stepNum * 0.1}s` }}>
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg transition-all duration-300 ${
+                      step >= stepNum
+                        ? 'bg-gradient-to-r from-purple-500 to-pink-600 shadow-lg'
+                        : 'bg-gray-300'
+                    }`}>
                   {stepNum}
                 </div>
                 <span className={`mt-2 text-sm font-medium ${
-                  step >= stepNum ? 'text-blue-600' : 'text-gray-500'
+                  step >= stepNum ? 'text-purple-600' : 'text-gray-500'
                 }`}>
                   {stepNum === 1 && '基本信息'}
                   {stepNum === 2 && '详细条款'}
@@ -222,20 +222,20 @@ export default function CreateAgreement() {
                 </span>
               </div>
             ))}
-            <div className="absolute top-6 left-6 right-6 h-0.5 bg-gray-200 -z-10">
-              <div 
-                className="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-500"
-                style={{ width: `${((step - 1) / 3) * 100}%` }}
-              ></div>
-            </div>
+                <div className="absolute top-6 left-6 right-6 h-0.5 bg-gray-200 -z-10">
+                  <div
+                    className="h-full bg-gradient-to-r from-purple-500 to-pink-600 transition-all duration-500"
+                    style={{ width: `${((step - 1) / 3) * 100}%` }}
+                  ></div>
+                </div>
           </div>
         </div>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        {/* 第一步：基本信息 */}
-        {step === 1 && (
-          <div className="modern-card p-8 animate-slide-up">
+            {/* 第一步：基本信息 */}
+            {step === 1 && (
+              <div className="modern-card p-8 animate-slide-up wave-effect">
             <h2 className="text-2xl font-bold mb-6 text-center gradient-text">基本信息</h2>
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -414,9 +414,9 @@ export default function CreateAgreement() {
           </div>
         )}
 
-        {/* 第二步：详细条款 */}
-        {step === 2 && (
-          <div className="modern-card p-8 animate-slide-up">
+            {/* 第二步：详细条款 */}
+            {step === 2 && (
+              <div className="modern-card p-8 animate-slide-up wave-effect">
             <h2 className="text-2xl font-bold mb-6 text-center gradient-text">详细条款</h2>
             <div className="space-y-6">
               <div className="form-control">
@@ -514,9 +514,9 @@ export default function CreateAgreement() {
           </div>
         )}
 
-        {/* 第三步：安全与隐私 */}
-        {step === 3 && (
-          <div className="modern-card p-8 animate-slide-up">
+            {/* 第三步：安全与隐私 */}
+            {step === 3 && (
+              <div className="modern-card p-8 animate-slide-up wave-effect">
             <h2 className="text-2xl font-bold mb-6 text-center gradient-text">安全与隐私</h2>
             <div className="space-y-6">
               <div className="form-control">
@@ -588,9 +588,9 @@ export default function CreateAgreement() {
           </div>
         )}
 
-        {/* 第四步：确认提交 */}
-        {step === 4 && (
-          <div className="modern-card p-8 animate-slide-up">
+            {/* 第四步：确认提交 */}
+            {step === 4 && (
+              <div className="modern-card p-8 animate-slide-up wave-effect sparkle">
             <h2 className="text-2xl font-bold mb-6 text-center gradient-text">确认提交</h2>
             <div className="space-y-6">
               <div className="glass-effect p-6 rounded-2xl">

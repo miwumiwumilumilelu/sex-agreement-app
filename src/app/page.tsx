@@ -3,23 +3,26 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[80vh] animate-fade-in">
+    <div className="flex flex-col items-center justify-center min-h-[80vh] animate-fade-in relative">
       {/* 浮动心形装饰 */}
       <div className="floating-hearts">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="floating-heart"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 15}s`,
-              animationDuration: `${15 + Math.random() * 10}s`
-            }}
-          >
-            ❤️
-          </div>
-        ))}
+        {[...Array(8)].map((_, i) => {
+          const hearts = ['❤️', '💕', '💖', '💗', '💝', '💘', '💞', '💓'];
+          return (
+            <div
+              key={i}
+              className="floating-heart"
+              style={{
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 8}s`
+              }}
+            >
+              {hearts[i % hearts.length]}
+            </div>
+          );
+        })}
       </div>
+      
       <div className="modern-card p-12 max-w-5xl w-full mx-4 sparkle wave-effect">
         <h1 className="text-5xl font-bold text-center mb-8 gradient-text animate-bounce-in">
           性行为同意协议系统

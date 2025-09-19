@@ -54,26 +54,30 @@ body::before {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
   overflow: hidden;
 }
 
 .floating-heart {
   position: absolute;
-  color: rgba(168, 85, 247, 0.3);
-  font-size: 20px;
+  font-size: 28px;
   animation: floatUp 15s linear infinite;
   opacity: 0;
+  z-index: 10;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.1));
+  will-change: transform, opacity;
 }
 
 .floating-heart:nth-child(odd) {
-  color: rgba(236, 72, 153, 0.3);
   animation-duration: 18s;
 }
 
 .floating-heart:nth-child(3n) {
-  color: rgba(245, 158, 11, 0.3);
-  animation-duration: 22s;
+  animation-duration: 20s;
+}
+
+.floating-heart:nth-child(4n) {
+  animation-duration: 16s;
 }
 
 /* 背景浮动动画 */
@@ -92,17 +96,17 @@ body::before {
 /* 心形浮动动画 */
 @keyframes floatUp {
   0% {
-    transform: translateY(100vh) rotate(0deg);
+    transform: translateY(100vh) translateX(0px) rotate(0deg);
     opacity: 0;
   }
-  10% {
-    opacity: 1;
+  5% {
+    opacity: 0.8;
   }
-  90% {
-    opacity: 1;
+  95% {
+    opacity: 0.8;
   }
   100% {
-    transform: translateY(-100px) rotate(360deg);
+    transform: translateY(-100px) translateX(0px) rotate(360deg);
     opacity: 0;
   }
 }
